@@ -5,5 +5,5 @@ _ = require('underscore');
 npmTree = require('./lib/npm-tree');
 
 npmTree(_(process.argv).chain().rest().last().value(), function(err, results){
-  console.log(npmTree.stringify(results))
+  console.log(npmTree.stringify(results));
 });
