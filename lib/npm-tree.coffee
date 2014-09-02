@@ -7,21 +7,10 @@ module.exports = (moduleName, cb) ->
   npm.load ->
     deps(moduleName, cb)
 
-module.exports.stringify = (results) ->
-  lines(results).join('\n')
-
-lines = (result, indent = 1) ->
-  return [toS(result, indent)] if _(result).isString()
-  _(result).chain().map (v, k) ->
-    [toS(k, indent)].concat(lines(v, indent + 1))
-  .flatten().value()
-
-toS = (name, indent) ->
-  Array(indent).join('  ') + name
-
 deps = (name, cb) ->
   npm.commands.view [name], true, (err, retval) ->
-    dependencies = Object.keys(retval[Object.keys(retval)[0]].dependencies || {})
+    return cb(err) if err?
+    dependencies = _(retval[_(retval).keys()[0]].dependencies).keys()
     async.parallel _(dependencies).map(subdeps), (err, results) ->
       cb(err, _(results).reduce( (memo, obj) ->
         _(memo).extend(obj)
@@ -35,6 +24,15 @@ subdeps = (dependency) ->
       callback(err, obj)
 
 
+## Stringy outputty stuff
+module.exports.stringify = (results) ->
+  lines(results).join('\n')
 
-# specify @version correctly (how?)
-#/ cache pkgs we've already fetched -- npm itself caches.. yay
+lines = (result, indent = 1) ->
+  return [toS(result, indent)] if _(result).isString()
+  _(result).chain().map (v, k) ->
+    [toS(k, indent)].concat(lines(v, indent + 1))
+  .flatten().value()
+
+toS = (name, indent) ->
+  Array(indent).join('  ') + name
