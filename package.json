@@ -1,0 +1,17 @@
+{
+  "name": "npm-tree",
+  "version": "0.0.0",
+  "description": "Generates a tree for the node modules depended on by a module",
+  "main": "index.js",
+  "author": "Justin Searls",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^0.9.0",
+    "coffee-script": "^1.8.0",
+    "npm": "~1.4.26",
+    "underscore": "^1.7.0"
+  },
+  "bin": {
+    "npm-tree": "./cli.js"
+  }
+}
