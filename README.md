@@ -177,3 +177,14 @@ npmTree('express', function(err, results){
   console.log(npmTree.stringify(results));
 });
 ```
+
+## Limitations
+
+While you can fetch a particular version of a library, like so:
+
+```
+$ npm-tree express@1.0.0
+```
+
+Keep in mind that `npm-tree` will only fetch the latest version of each of those dependencies, which will obviously diverge from
+whatever is specified by the package.json of the parent dependency.
