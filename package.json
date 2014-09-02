@@ -1,6 +1,6 @@
 {
   "name": "npm-tree",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generates a tree of the npm modules depended on by a given module",
   "main": "index.js",
   "author": "Justin Searls",
